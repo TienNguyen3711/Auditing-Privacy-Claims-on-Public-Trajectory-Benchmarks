@@ -1,0 +1,1 @@
+"""Turn trajectories into text: the original file formats (GeoLife PLT, T-Drive lines) and neutral formats (lat,lon / JSON / grid cell). Used to separate format memorisation from coordinate memorisation (N1)."""

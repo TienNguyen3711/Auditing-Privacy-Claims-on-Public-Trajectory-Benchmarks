@@ -1,0 +1,9 @@
+# Not installed yet. Pin exact versions when the environment is created.
+torch
+transformers>=4.51      # Qwen3 support
+accelerate
+numpy
+pandas
+scipy
+statsmodels
+pyyaml

@@ -1,0 +1,56 @@
+# The four open-weight models chosen for Paper 6 (2026-11-24).
+# base = pretrained checkpoint (SQ1 row completion, Min-K%, CoDeC); instruct = attacker in SQ2 / SQ4.
+# Repo ids and revisions must be re-checked and pinned (commit hash) at download time.
+# Downloads need the author's approval (Research/CLAUDE.md). Llama and Gemma are gated on Hugging Face (accept licence first).
+# cutoff_source says where the cutoff comes from; "unverified" means not checked against the publisher's own page.
+
+models:
+  olmo2_13b:
+    family: OLMo 2 (AllenAI)
+    base: allenai/OLMo-2-1124-13B
+    instruct: allenai/OLMo-2-1124-13B-Instruct
+    revision: null
+    params_b: 13
+    training_cutoff: null            # not found yet; check the olmo-mix-1124 dataset card / OLMo 2 report (arXiv 2501.00656)
+    cutoff_source: null
+    open_pretraining_data: true      # olmo-mix-1124 + dolmino-mix-1124; infini-gram hosts an OLMo-mix-1124 index
+    note: ground-truth model, corpus membership of GeoLife/T-Drive strings can be checked directly
+
+  llama31_8b:
+    family: Llama 3.1 (Meta)
+    base: meta-llama/Llama-3.1-8B
+    instruct: meta-llama/Llama-3.1-8B-Instruct
+    revision: null
+    params_b: 8
+    training_cutoff: 2023-12
+    cutoff_source: Meta model card as mirrored by NVIDIA NIM and Hugging Face (Meta's own card not yet opened)
+    open_pretraining_data: false
+    gated: true
+
+  gemma3_12b:
+    family: Gemma 3 (Google)
+    base: google/gemma-3-12b-pt
+    instruct: google/gemma-3-12b-it
+    revision: null
+    params_b: 12
+    training_cutoff: 2024-08
+    cutoff_source: Google Gemma 3 model card (ai.google.dev/gemma/docs/core/model_card_3)
+    open_pretraining_data: false
+    gated: true
+    note: multimodal checkpoint; confirm the text-only loading path in transformers before the pilot
+
+  qwen3_14b:
+    family: Qwen3 (Alibaba)
+    base: Qwen/Qwen3-14B-Base
+    instruct: Qwen/Qwen3-14B
+    revision: null
+    params_b: 14.8
+    training_cutoff: 2025-03         # unverified: OpenRouter listing only; the Qwen3 report (arXiv 2505.09388) gives no date
+    cutoff_source: OpenRouter (third party)
+    open_pretraining_data: false
+    note: does not strictly meet the "disclosed training cutoff" criterion of the proposal; needs transformers >= 4.51
+
+runtime:
+  library: transformers
+  dtype: bfloat16                    # 14B ~ 28 GB, 8B ~ 16 GB; MPS on the 64 GB Mac, or a 24-48 GB CUDA GPU
+  device: auto

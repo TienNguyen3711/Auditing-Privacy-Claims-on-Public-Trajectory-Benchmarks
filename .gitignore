@@ -1,0 +1,10 @@
+# Large or private datasets stay out of git.
+data/
+.DS_Store
+__pycache__/
+.venv/
+logs/
+
+# Outputs that hold dataset participants' (inferred) home coordinates are never published (proposal section 5.5).
+results/**/records.jsonl
+results/**/home_quality.json
